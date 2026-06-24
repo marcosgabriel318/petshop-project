@@ -4,7 +4,7 @@ export class CreatePetDto {
     this.name = name;
     this.especie = especie;
     this.age = age;
-  }s
+  }
 
   id: number;
   name: string;
