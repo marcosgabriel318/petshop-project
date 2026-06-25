@@ -11,3 +11,5 @@ export class CreatePetDto {
   especie: string;
   age: number;
 }
+
+// NestJS identifica a classe automaticamente

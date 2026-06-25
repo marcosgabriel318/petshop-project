@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { PetsService } from './pets/pets.service';
-import { PetsController } from './pets/pets.controller';
-import { OwnerService } from './owners/owner.service';
-import { OwnerController } from './owners/owner.controller';
+import {OwnerModule} from './owners/owner.module';
+import { PetsModule } from './pets/pets.modules';
 
 @Module({
-  imports: [],
-  controllers: [PetsController, OwnerController],
-  providers: [PetsService, OwnerService],
+  imports: [OwnerModule, PetsModule],
 })
+
 export class AppModule {}
+
+// Finalizar os endpoints e conectar TypeORM com o banco de dados.
