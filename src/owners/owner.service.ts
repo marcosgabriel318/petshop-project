@@ -1,35 +1,34 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { Owner } from "./owner.entity";
+import { DataDto } from "shared/dto/data.dto";
 
 @Injectable()
 export class OwnerService {
-  private owners = [
-    { id: 1, name: "Marcos", email: "marcos@example.com"},
-    { id: 2, name: "Gabriel", email: "gabriel@example.com"},
-  ];
+  constructor(
+    @Inject('OWNER_REPOSITORY')
+    private ownerRepository: Repository<Owner>,
+  ) {}
 
-  createOwner(owner) {
-    this.owners.push(owner);
+  async createOwner(owner) {
+    return new DataDto("Sucess", [await this.ownerRepository.save(owner)]);
   }
 
-  getAllOwners() {
-    return this.owners;
+  async getAllOwners() {
+    return new DataDto("Sucess", await this.ownerRepository.find());
   }
 
-  getOwnerById(id) {
-    return this.owners.find((owner) => owner.id === id);
-  } 
-
-  updateOwner(id, updatedOwner) {
-    this.owners = this.owners.map((owner) => {
-      if (owner.id === id) {
-        return { ...owner, ...updatedOwner };
-      }
-      return owner;
-    });
+  async getOwnerById(id) {
+    return new DataDto("Sucess", [await this.ownerRepository.findOne({ where: { id } })]);
   }
 
-  deleteOwner(id) {
-    this.owners = this.owners.filter((owner) => owner.id !== id);
+  async updateOwner(id, updatedOwner) {
+    await this.ownerRepository.update(id, updatedOwner);
+    return new DataDto("Sucess", []);
   }
-  
+
+  async deleteOwner(id) {
+    await this.ownerRepository.delete(id);
+    return new DataDto("Sucess", []);
+  }
 }

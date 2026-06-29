@@ -1,34 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { Pets } from './pets.entity';
+import { DataDto } from '../shared/dto/data.dto';
 
 @Injectable() 
 export class PetsService {
-  private pets = [
-    { id: 1, name: 'Rex', especie: 'Cachorro', age: 5 },
-    { id: 2, name: 'Nina', especie: 'Gato', age: 3 },
-  ];
-  
-  getAllPets() {
-    return this.pets;
+  constructor(
+    @Inject('PETS_REPOSITORY')
+    private petsRepository: Repository<Pets>,
+  ) {}
+
+  async createPet(pet) {
+    return new DataDto("Sucess", [await this.petsRepository.save(pet)]);
   }
 
-  getPetById(id) {
-    return this.pets.find((pet) => pet.id === id);
+  async getAllPets() {
+    return new DataDto("Sucess", await this.petsRepository.find());
   }
 
-  createPet(pet) {
-    this.pets.push(pet);
+  async getPetById(id){
+    return new DataDto("Sucess", [await this.petsRepository.findOne({ where: { id } })]);
   }
 
-  deletePet(id) {
-    this.pets = this.pets.filter((pet) => pet.id !== id);
+  async updatePet(id, dataPet) {
+    await this.petsRepository.update(id, dataPet);
+    return new DataDto("Sucess", []);
   }
 
-  updatePet(id, dataPet){
-    this.pets = this.pets.map((pet) => {
-      if(pet.id === id){
-        return {...pet, ...dataPet};
-      }
-      return pet;
-    });
+  async deletePet(id) {
+    await this.petsRepository.delete(id);
+    return new DataDto("Sucess", []);
   }
 }

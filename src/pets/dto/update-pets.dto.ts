@@ -1,4 +1,4 @@
-export class CreatePetDto {
+export class UpdatePetDto {
   constructor(name: string, especie: string, age: number) {
     this.name = name;
     this.especie = especie;
