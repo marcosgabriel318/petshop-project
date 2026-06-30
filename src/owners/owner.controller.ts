@@ -1,5 +1,14 @@
-import { OwnerService } from './owner.service'
-import { Body, Controller, Get, Post, Param, Put, Delete, HttpCode } from '@nestjs/common';
+import { OwnerService } from './owner.service';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Param,
+  Put,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
 
@@ -8,7 +17,7 @@ export class OwnerController {
   constructor(private readonly ownerService: OwnerService) {}
 
   @Post()
- async createOwner(@Body() owner: CreateOwnerDto) {
+  async createOwner(@Body() owner: CreateOwnerDto) {
     return this.ownerService.createOwner(owner);
   }
 
@@ -33,4 +42,4 @@ export class OwnerController {
   async deleteOwner(@Param('id') id) {
     return this.ownerService.deleteOwner(id);
   }
-}   
+}

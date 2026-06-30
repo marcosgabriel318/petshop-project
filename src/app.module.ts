@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import {OwnerModule} from './owners/owner.module';
+import { OwnerModule } from './owners/owner.module';
 import { PetsModule } from './pets/pets.modules';
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import AppDataSource from 'database/data-source';
 
 @Module({
-  imports: [OwnerModule, PetsModule],
+  imports: [
+    TypeOrmModule.forRoot(AppDataSource.options),
+    OwnerModule,
+    PetsModule,
+  ],
 })
-
 export class AppModule {}
-
-// Finalizar os endpoints e conectar TypeORM com o banco de dados.

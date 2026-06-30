@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from 'typeorm';
+import { Pet } from '../pets/pets.entity'
 
 @Entity()
 export class Owner {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column()
@@ -10,4 +11,8 @@ export class Owner {
 
   @Column()
   email!: string;
+
+  @JoinColumn()
+  @OneToMany(() => Pet, (pet) => pet.owner)
+  pets!: Pet[];
 }

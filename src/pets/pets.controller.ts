@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Param, Delete, HttpCode } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Param,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pets.dto';
 import { UpdatePetDto } from './dto/update-pets.dto';
@@ -19,8 +28,7 @@ export class PetsController {
 
   @Get(':id')
   async getPetById(@Param('id') id) {
-   return this.petsService.getPetById(id);
-  
+    return this.petsService.getPetById(id);
   }
 
   @Put(':id')

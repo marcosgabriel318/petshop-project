@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
 import { OwnerService } from './owner.service';
 import { OwnerController } from './owner.controller';
-import { ownerProvider } from './owner.provider';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Owner } from './owner.entity';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [TypeOrmModule.forFeature([Owner])],
   controllers: [OwnerController],
-  providers: [
-    ...ownerProvider,
-    OwnerService],
+  providers: [OwnerService],
+  exports: [OwnerService],
 })
-
 export class OwnerModule {}

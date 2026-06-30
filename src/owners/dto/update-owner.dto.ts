@@ -3,8 +3,8 @@ export class UpdateOwnerDto {
     this.id = id;
     this.name = name;
     this.email = email;
-}
-    id: number;
-    name: string;
-    email: string;
+  }
+  id: number;
+  name: string;
+  email: string;
 }
