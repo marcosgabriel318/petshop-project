@@ -1,9 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository, } from '@nestjs/typeorm';
+import { DataDto } from 'shared/dto/data.dto';
 import { Repository } from 'typeorm';
 import { Owner } from './owner.entity';
-import { DataDto } from 'shared/dto/data.dto';
-import { InjectRepository, } from '@nestjs/typeorm';
-import { Pet } from 'pets/pets.entity';
 
 @Injectable()
 export class OwnerService {
@@ -19,7 +18,6 @@ export class OwnerService {
   async getAllOwners() {
     let data = await this.ownerRepository.find({ relations: {pets: true},
     })
-    console.log(data)
     return new DataDto('Sucess', data);
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Pet } from './pets.entity';
-import { DataDto } from '../shared/dto/data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { DataDto } from '../shared/dto/data.dto';
+import { Pet } from './pets.entity';
 
 @Injectable()
 export class PetsService {
@@ -12,7 +12,12 @@ export class PetsService {
   ) {}
 
   async createPet(pet) {
-    return new DataDto('Sucess', [await this.petsRepository.save(pet)]);
+    const { ownerId, ...petData } = pet
+    const created = await this.petsRepository.save({
+      owner: { id: ownerId },
+      ...petData
+    });
+    return new DataDto('Sucess', created);
   }
 
   async getAllPets() {
