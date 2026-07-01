@@ -1,17 +1,13 @@
 export class CreatePetDto {
-  constructor(name: string, especie: string, age: number, ownerId: string) {
+  constructor (name: string, especie: string, age: number, ownerId: string) {
     this.name = name;
     this.especie = especie;
     this.age = age;
-    this.owner = {
-      id: ownerId,
-    } 
+    this.ownerId = ownerId
   }
 
   name: string;
   especie: string;
   age: number;
-  owner: {
-    id: string
-  }
+  ownerId: string;
 }
